@@ -1,0 +1,186 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: This template Deploys an AWS Transit Gateway Attachment and Route creation to a centralized AWS Transit Gateway
+
+
+Parameters:
+
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+    Default: dev02
+
+  ServicePort:
+    Type: Number
+    Default: 5000
+
+  ServiceName:
+    Type: String
+    Default: sql-mcp-server
+
+Mappings:
+  EnvMap:
+    auto:
+      vpcID: vpc-0b80c363330a472e1
+      clusterARN: arn:aws:ecs:eu-west-1:224712001626:cluster/cluster-auto-nlb
+      Subnets:
+        - subnet-0400a72924beec8b5
+        - subnet-020125ecf50f20ce9
+        - subnet-0ca440dee041a7eb7
+
+      SecurityGroup: sg-04b0453140b04def0
+      ExecutionRole: arn:aws:iam::224712001626:role/role-ecs-task
+      Image: 773564674923.dkr.ecr.eu-west-1.amazonaws.com/sql-mcp-server:dev_38_6591250
+      Cpu: 1024
+      Memory: 2048
+      ServiceDiscoveryNamespaceId: ns-vvwhxm4ur3pwvas3
+
+    dev02:
+      vpcID: vpc-084f188e1aa26832b
+      clusterARN: arn:aws:ecs:eu-west-1:026581078905:cluster/cluster-test-nlb
+      Subnets:
+        - subnet-047b44ce8ccd91dfc
+        - subnet-093a387f72b5a2053
+        - subnet-08597644270f01c62
+
+      SecurityGroup: sg-08ddd93e1247705bb
+      ExecutionRole: arn:aws:iam::026581078905:role/role-ecs-task
+      Image: 773564674923.dkr.ecr.eu-west-1.amazonaws.com/sql-mcp-server:dev_38_6591250
+      Cpu: 1024
+      Memory: 2048
+      ServiceDiscoveryNamespaceId: ns-pxajqtzjmcvbpt4r
+
+    uat:
+      vpcID: vpc-08afd2e9b3421c41e
+      clusterARN: arn:aws:ecs:eu-west-1:873297761902:cluster/cluster-uat-nlb
+      Subnets:
+        - subnet-09544a541119b07cd
+        - subnet-03e56c1d4f0fc2eb9
+        - subnet-0a3e38894ea353390
+
+      SecurityGroup: sg-0ad83198dcc255125
+      ExecutionRole: arn:aws:iam::873297761902:role/role-ecs-task"
+      Image: 773564674923.dkr.ecr.eu-west-1.amazonaws.com/sql-mcp-server:dev_38_6591250
+      Cpu: 512
+      Memory: 1024
+      ServiceDiscoveryNamespaceId: ns-4n7uelqpcugluhkm
+
+    prod:
+      vpcID: vpc-0788090d351bf2490
+      clusterARN: arn:aws:ecs:eu-west-1:899187575527:cluster/cluster-prod-nlb
+      Subnets:
+        - subnet-097c722eb1e421e03
+        - subnet-0dc231c326e03efd4
+        - subnet-078919607895c373b
+
+      SecurityGroup: sg-01e168c9ac1a82c48
+      ExecutionRole: arn:aws:iam::899187575527:role/role-ecs-task"
+      Image: "773564674923.dkr.ecr.eu-west-1.amazonaws.com/sql-mcp-server:dev_38_6591250"
+      Cpu: 1024
+      Memory: 2048
+      ServiceDiscoveryNamespaceId: ns-cuy3i6hgltjbrwpg
+
+
+Resources:
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    # Makes sure the log group is created before it is used.
+    Properties:
+      # Name of the task definition. Subsequent versions of the task definition are grouped together under this name.
+      Family: !Join ['', [!Ref ServiceName, '-service']]
+      # awsvpc is required for Fargate
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      Cpu: !FindInMap [EnvMap, !Ref EnvironmentName, Cpu]
+      Memory: !FindInMap [EnvMap, !Ref EnvironmentName, Memory]
+      ExecutionRoleArn: !FindInMap [EnvMap, !Ref EnvironmentName,  ExecutionRole]
+      # "The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that grants containers in the task permission to call AWS APIs on your behalf."
+      TaskRoleArn: !FindInMap [EnvMap, !Ref EnvironmentName,  ExecutionRole]
+      ContainerDefinitions:
+        - Name: !Sub "${ServiceName}-service"
+          Image: !FindInMap [EnvMap, !Ref EnvironmentName,  Image]
+          PortMappings:
+            - ContainerPort: !Ref ServicePort
+          # Send logs to CloudWatch Logs
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-region: !Ref AWS::Region
+              awslogs-group: !Sub "/ecs/${ServiceName}-service"
+              awslogs-stream-prefix: ecs
+  # A role needed by ECS
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: true
+      HealthCheckIntervalSeconds: 30
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 10
+      HealthyThresholdCount: 5
+      HealthCheckPath: "/health"
+      Name: !Sub "tg-${ServiceName}-1"
+      Port: !Ref ServicePort
+      Protocol: "HTTP"
+      # TargetGroupAttributes:
+      #   - TargetGroupAttribute
+      # Targets:
+      #   - TargetDescription
+      TargetType: "ip"
+      UnhealthyThresholdCount: 5
+      VpcId: !FindInMap [EnvMap, !Ref EnvironmentName, vpcID]
+
+  EcsService:
+    Type: AWS::ECS::Service
+    DependsOn: Listener
+    Properties:
+      Cluster: !FindInMap [EnvMap, !Ref EnvironmentName, clusterARN]
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 100
+      DesiredCount: 0
+      EnableECSManagedTags: true
+      EnableExecuteCommand: true
+      HealthCheckGracePeriodSeconds: 0
+      LaunchType: "FARGATE"
+      LoadBalancers:
+        - ContainerName: !Sub "${ServiceName}-service"
+          ContainerPort:   !Ref ServicePort
+          TargetGroupArn: !Ref TargetGroup
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: "DISABLED"
+          SecurityGroups:
+            - !FindInMap [EnvMap, !Ref EnvironmentName, SecurityGroup]
+          Subnets: !FindInMap [EnvMap, !Ref EnvironmentName, Subnets]
+
+      SchedulingStrategy: "REPLICA"
+      ServiceName: !Sub "srv-${ServiceName}"
+      TaskDefinition: !Ref TaskDefinition
+
+  ApiLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/ecs/${ServiceName}-service"
+      RetentionInDays: 30
+
+  ApplicationLoadBalancer:
+    Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
+    Properties:
+      Name: !Sub "alb-${ServiceName}"
+      Type: application
+      Scheme: internal
+      Subnets: !FindInMap [EnvMap, !Ref EnvironmentName, Subnets]
+      SecurityGroups:
+        - !FindInMap [EnvMap, !Ref EnvironmentName, SecurityGroup]
+
+
+  Listener:
+    Type: 'AWS::ElasticLoadBalancingV2::Listener'
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref TargetGroup
+      LoadBalancerArn: !Ref ApplicationLoadBalancer
+      Port: 80
+      Protocol: HTTP

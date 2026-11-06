@@ -1,0 +1,18 @@
+{
+	"mcpServers": {
+		"sqlserver-uat": {
+			"url": "http://internal-alb-sql-mcp-server-1114297418.eu-west-1.elb.amazonaws.com/mcp",
+			"disabled": false,
+			"autoApprove": [
+				"test_connection",
+				"list_databases",
+				"list_tables",
+				"list_views",
+				"describe_table",
+				"get_foreign_keys",
+				"get_table_stats",
+				"get_server_info"
+			]
+		}
+	}
+}

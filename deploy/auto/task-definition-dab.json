@@ -1,0 +1,42 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "sql-mcp-server-service",
+      "image": "773564674923.dkr.ecr.eu-west-1.amazonaws.com/sql-mcp-server:dev_12_ed6af34",
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 5000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "secrets": [
+        {
+          "name": "MSSQL_CONNECTION_STRING",
+          "valueFrom": "arn:aws:ssm:eu-west-1:224712001626:parameter/mssql-connection-string"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/mcp-server-service",
+          "mode": "non-blocking",
+          "awslogs-multiline-pattern": "^([0-9]{2})-([0-9]{2})-([0-9]{4})",
+          "awslogs-region": "eu-west-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "systemControls": []
+    }
+  ],
+  "family": "sql-mcp-server",
+  "taskRoleArn": "arn:aws:iam::224712001626:role/role-ecs-task",
+  "executionRoleArn": "arn:aws:iam::224712001626:role/role-ecs-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "1024",
+  "memory": "2048"
+}

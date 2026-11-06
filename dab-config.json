@@ -1,0 +1,3677 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/download/v2.0.9/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('MSSQL_CONNECTION_STRING')",
+    "health": {
+      "threshold-ms": 750
+    }
+  },
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api",
+      "request-body-strict": false
+    },
+    "graphql": {
+      "enabled": true,
+      "path": "/graphql",
+      "allow-introspection": true
+    },
+    "mcp": {
+      "enabled": true,
+      "path": "/mcp"
+    },
+    "host": {
+      "cors": {
+        "origins": [],
+        "allow-credentials": false
+      },
+      "authentication": {
+        "provider": "EntraID",
+        "jwt": {
+          "audience": "752vuhikkgbus50lg8svq5aj8b",
+          "issuer": "https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_2QxFb2YTB"
+        }
+      },
+      "mode": "production"
+    },
+    "telemetry": {
+      "open-telemetry": {
+        "enabled": true,
+        "endpoint": "@env('OTEL_EXPORTER_OTLP_ENDPOINT')",
+        "headers": "@env('OTEL_EXPORTER_OTLP_HEADERS')",
+        "service-name": "@env('OTEL_SERVICE_NAME')"
+      }
+    },
+    "health": {
+      "enabled": true,
+      "cache-ttl-seconds": 10,
+      "roles": [
+        "anonymous"
+      ],
+      "max-query-parallelism": 4
+    }
+  },
+  "autoentities": {},
+  "entities": {
+    "company": {
+      "description": "test.",
+      "source": {
+        "object": "dbo.company",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "company",
+          "plural": "companies"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "ballot": {
+      "description": "ballot",
+      "source": {
+        "object": "dbo.ballot",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "ballot",
+          "plural": "ballots"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "account_market_flag": {
+      "description": "account_market_flag",
+      "source": {
+        "object": "dbo.account_market_flag",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "account_market_flag",
+          "plural": "account_market_flags"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "account_operator_bic_mapping": {
+      "description": "account_operator_bic_mapping",
+      "source": {
+        "object": "dbo.account_operator_bic_mapping",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "account_operator_bic_mapping",
+          "plural": "account_operator_bic_mappings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "advisor_vote_rejection": {
+      "description": "advisor_vote_rejection",
+      "source": {
+        "object": "dbo.advisor_vote_rejection",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "advisor_vote_rejection",
+          "plural": "advisor_vote_rejections"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "agenda_extraction_bic_blacklist": {
+      "description": "agenda_extraction_bic_blacklist",
+      "source": {
+        "object": "dbo.agenda_extraction_bic_blacklist",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "agenda_extraction_bic_blacklist",
+          "plural": "agenda_extraction_bic_blacklists"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "agenda_item": {
+      "description": "agenda_item",
+      "source": {
+        "object": "dbo.agenda_item",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "agenda_item",
+          "plural": "agenda_items"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "agenda_item_result": {
+      "description": "agenda_item_result",
+      "source": {
+        "object": "dbo.agenda_item_result",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "agenda_item_result",
+          "plural": "agenda_item_results"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "agenda_item_vote": {
+      "description": "agenda_item_vote",
+      "source": {
+        "object": "dbo.agenda_item_vote",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "agenda_item_vote",
+          "plural": "agenda_item_votes"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "agent_company_recipients": {
+      "description": "agent_company_recipients",
+      "source": {
+        "object": "dbo.agent_company_recipients",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "agent_company_recipients",
+          "plural": "agent_company_recipients"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "allocation": {
+      "description": "allocation",
+      "source": {
+        "object": "dbo.allocation",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "allocation",
+          "plural": "allocations"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "allocation_agenda_item_vote": {
+      "description": "allocation_agenda_item_vote",
+      "source": {
+        "object": "dbo.allocation_agenda_item_vote",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "allocation_agenda_item_vote",
+          "plural": "allocation_agenda_item_votes"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "allocation_ballot": {
+      "description": "allocation_ballot",
+      "source": {
+        "object": "dbo.allocation_ballot",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "allocation_ballot",
+          "plural": "allocation_ballots"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "allocation_snapshot": {
+      "description": "allocation_snapshot",
+      "source": {
+        "object": "dbo.allocation_snapshot",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "allocation_snapshot",
+          "plural": "allocation_snapshots"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "attendance_delivery_address": {
+      "description": "attendance_delivery_address",
+      "source": {
+        "object": "dbo.attendance_delivery_address",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "attendance_delivery_address",
+          "plural": "attendance_delivery_addresses"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "attendee": {
+      "description": "attendee",
+      "source": {
+        "object": "dbo.attendee",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "attendee",
+          "plural": "attendees"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "auto_vote_configuration": {
+      "description": "auto_vote_configuration",
+      "source": {
+        "object": "dbo.auto_vote_configuration",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "auto_vote_configuration",
+          "plural": "auto_vote_configurations"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "ballot_message_original": {
+      "description": "ballot_message_original",
+      "source": {
+        "object": "dbo.ballot_message_original",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "ballot_message_original",
+          "plural": "ballot_message_originals"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "beneficial_owner": {
+      "description": "beneficial_owner",
+      "source": {
+        "object": "dbo.beneficial_owner",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "beneficial_owner",
+          "plural": "beneficial_owners"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "blacklisted_active_meetings": {
+      "description": "blacklisted_active_meetings",
+      "source": {
+        "object": "dbo.blacklisted_active_meetings",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "blacklisted_active_meetings",
+          "plural": "blacklisted_active_meetings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "blocking_shares": {
+      "description": "blocking_shares",
+      "source": {
+        "object": "dbo.blocking_shares",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "blocking_shares",
+          "plural": "blocking_shares"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "client_company_mapping": {
+      "description": "client_company_mapping",
+      "source": {
+        "object": "dbo.client_company_mapping",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "client_company_mapping",
+          "plural": "client_company_mappings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "company_account_original": {
+      "description": "company_account_original",
+      "source": {
+        "object": "dbo.company_account_original",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "company_account_original",
+          "plural": "company_account_originals"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "company_account_suppress_market_original": {
+      "description": "company_account_suppress_market_original",
+      "source": {
+        "object": "dbo.company_account_suppress_market_original",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "company_account_suppress_market_original",
+          "plural": "company_account_suppress_market_originals"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "company_companies": {
+      "description": "company_companies",
+      "source": {
+        "object": "dbo.company_companies",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "company_companies",
+          "plural": "company_companies"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "company_companies_flat": {
+      "description": "company_companies_flat",
+      "source": {
+        "object": "dbo.company_companies_flat",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "company_companies_flat",
+          "plural": "company_companies_flats"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "company_companies_flat_shadow": {
+      "description": "company_companies_flat_shadow",
+      "source": {
+        "object": "dbo.company_companies_flat_shadow",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "company_companies_flat_shadow",
+          "plural": "company_companies_flat_shadows"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "company_email_extension": {
+      "description": "company_email_extension",
+      "source": {
+        "object": "dbo.company_email_extension",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "company_email_extension",
+          "plural": "company_email_extensions"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "company_isin": {
+      "description": "company_isin",
+      "source": {
+        "object": "dbo.company_isin",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "company_isin",
+          "plural": "company_isins"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "company_meeting_files_status": {
+      "description": "company_meeting_files_status",
+      "source": {
+        "object": "dbo.company_meeting_files_status",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "company_meeting_files_status",
+          "plural": "company_meeting_files_statuses"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "corporate_actions": {
+      "description": "corporate_actions",
+      "source": {
+        "object": "dbo.corporate_actions",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "corporate_actions",
+          "plural": "corporate_actions"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "cpb_holding_business_date": {
+      "description": "cpb_holding_business_date",
+      "source": {
+        "object": "dbo.cpb_holding_business_date",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "cpb_holding_business_date",
+          "plural": "cpb_holding_business_dates"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "cpb_raw_holdings": {
+      "description": "cpb_raw_holdings",
+      "source": {
+        "object": "dbo.cpb_raw_holdings",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "cpb_raw_holdings",
+          "plural": "cpb_raw_holdings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "dc_skac_registration": {
+      "description": "dc_skac_registration",
+      "source": {
+        "object": "dbo.dc_skac_registration",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "dc_skac_registration",
+          "plural": "dc_skac_registrations"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "deleted_user_audit": {
+      "description": "deleted_user_audit",
+      "source": {
+        "object": "dbo.deleted_user_audit",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "deleted_user_audit",
+          "plural": "deleted_user_audits"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "distributed_locks": {
+      "description": "distributed_locks",
+      "source": {
+        "object": "dbo.distributed_locks",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "distributed_locks",
+          "plural": "distributed_locks"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "entity_encryption_setting": {
+      "description": "entity_encryption_setting",
+      "source": {
+        "object": "dbo.entity_encryption_setting",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "entity_encryption_setting",
+          "plural": "entity_encryption_settings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "execution_rules": {
+      "description": "execution_rules",
+      "source": {
+        "object": "dbo.execution_rules",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "execution_rules",
+          "plural": "execution_rules"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "execution_status": {
+      "description": "execution_status",
+      "source": {
+        "object": "dbo.execution_status",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "execution_status",
+          "plural": "execution_statuses"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "external_allocation_status": {
+      "description": "external_allocation_status",
+      "source": {
+        "object": "dbo.external_allocation_status",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "external_allocation_status",
+          "plural": "external_allocation_statuses"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "external_settlement": {
+      "description": "external_settlement",
+      "source": {
+        "object": "dbo.external_settlement",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "external_settlement",
+          "plural": "external_settlements"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "file_attachment_data": {
+      "description": "file_attachment_data",
+      "source": {
+        "object": "dbo.file_attachment_data",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "file_attachment_data",
+          "plural": "file_attachment_datas"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "global_participation_method_configuration": {
+      "description": "global_participation_method_configuration",
+      "source": {
+        "object": "dbo.global_participation_method_configuration",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "global_participation_method_configuration",
+          "plural": "global_participation_method_configurations"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "holder_errors": {
+      "description": "holder_errors",
+      "source": {
+        "object": "dbo.holder_errors",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "holder_errors",
+          "plural": "holder_errors"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "holding": {
+      "description": "holding",
+      "source": {
+        "object": "dbo.holding",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "holding",
+          "plural": "holdings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "holding_data": {
+      "description": "holding_data",
+      "source": {
+        "object": "dbo.holding_data",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "holding_data",
+          "plural": "holding_datas"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "holding_hierarchy": {
+      "description": "holding_hierarchy",
+      "source": {
+        "object": "dbo.holding_hierarchy",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "holding_hierarchy",
+          "plural": "holding_hierarchies"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "holding_isin_state": {
+      "description": "holding_isin_state",
+      "source": {
+        "object": "dbo.holding_isin_state",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "holding_isin_state",
+          "plural": "holding_isin_states"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "holding_keys": {
+      "description": "holding_keys",
+      "source": {
+        "object": "dbo.holding_keys",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "holding_keys",
+          "plural": "holding_keys"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "holding_update_state": {
+      "description": "holding_update_state",
+      "source": {
+        "object": "dbo.holding_update_state",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "holding_update_state",
+          "plural": "holding_update_states"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "identity_provider": {
+      "description": "identity_provider",
+      "source": {
+        "object": "dbo.identity_provider",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "identity_provider",
+          "plural": "identity_providers"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "incentive_premium": {
+      "description": "incentive_premium",
+      "source": {
+        "object": "dbo.incentive_premium",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "incentive_premium",
+          "plural": "incentive_premia"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "incentive_premium_vote_instruction": {
+      "description": "incentive_premium_vote_instruction",
+      "source": {
+        "object": "dbo.incentive_premium_vote_instruction",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "incentive_premium_vote_instruction",
+          "plural": "incentive_premium_vote_instructions"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "instruction_access": {
+      "description": "instruction_access",
+      "source": {
+        "object": "dbo.instruction_access",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "instruction_access",
+          "plural": "instruction_accesses"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "instruction_maker_checker": {
+      "description": "instruction_maker_checker",
+      "source": {
+        "object": "dbo.instruction_maker_checker",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "instruction_maker_checker",
+          "plural": "instruction_maker_checkers"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "instruction_meta": {
+      "description": "instruction_meta",
+      "source": {
+        "object": "dbo.instruction_meta",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "instruction_meta",
+          "plural": "instruction_metas"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "intermediary": {
+      "description": "intermediary",
+      "source": {
+        "object": "dbo.intermediary",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "intermediary",
+          "plural": "intermediaries"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "intermediary_account": {
+      "description": "intermediary_account",
+      "source": {
+        "object": "dbo.intermediary_account",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "intermediary_account",
+          "plural": "intermediary_accounts"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "intermediary_file": {
+      "description": "intermediary_file",
+      "source": {
+        "object": "dbo.intermediary_file",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "intermediary_file",
+          "plural": "intermediary_files"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "intermediary_sanction": {
+      "description": "intermediary_sanction",
+      "source": {
+        "object": "dbo.intermediary_sanction",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "intermediary_sanction",
+          "plural": "intermediary_sanctions"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "intermediary_swift_format_market": {
+      "description": "intermediary_swift_format_market",
+      "source": {
+        "object": "dbo.intermediary_swift_format_market",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "intermediary_swift_format_market",
+          "plural": "intermediary_swift_format_markets"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "intermediary_swift_mapping_configuration": {
+      "description": "intermediary_swift_mapping_configuration",
+      "source": {
+        "object": "dbo.intermediary_swift_mapping_configuration",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "intermediary_swift_mapping_configuration",
+          "plural": "intermediary_swift_mapping_configurations"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "intermediary_trusted_source": {
+      "description": "intermediary_trusted_source",
+      "source": {
+        "object": "dbo.intermediary_trusted_source",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "intermediary_trusted_source",
+          "plural": "intermediary_trusted_sources"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "intermediary_vote_execution": {
+      "description": "intermediary_vote_execution",
+      "source": {
+        "object": "dbo.intermediary_vote_execution",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "intermediary_vote_execution",
+          "plural": "intermediary_vote_executions"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "intermediary_vote_recycling_configuration": {
+      "description": "intermediary_vote_recycling_configuration",
+      "source": {
+        "object": "dbo.intermediary_vote_recycling_configuration",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "intermediary_vote_recycling_configuration",
+          "plural": "intermediary_vote_recycling_configurations"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "internal_instruction_status": {
+      "description": "internal_instruction_status",
+      "source": {
+        "object": "dbo.internal_instruction_status",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "internal_instruction_status",
+          "plural": "internal_instruction_statuses"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "investors_type_identification": {
+      "description": "investors_type_identification",
+      "source": {
+        "object": "dbo.investors_type_identification",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "investors_type_identification",
+          "plural": "investors_type_identifications"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "isin_market": {
+      "description": "isin_market",
+      "source": {
+        "object": "dbo.isin_market",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "isin_market",
+          "plural": "isin_markets"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "isin_sanction": {
+      "description": "isin_sanction",
+      "source": {
+        "object": "dbo.isin_sanction",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "isin_sanction",
+          "plural": "isin_sanctions"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "iso_15022_channel_import_19012026": {
+      "description": "iso_15022_channel_import_19012026",
+      "source": {
+        "object": "dbo.iso_15022_channel_import_19012026",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "iso_15022_channel_import_19012026",
+          "plural": "iso_15022_channel_import_19012026s"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "iso_20022_channel_import_19012026": {
+      "description": "iso_20022_channel_import_19012026",
+      "source": {
+        "object": "dbo.iso_20022_channel_import_19012026",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "iso_20022_channel_import_19012026",
+          "plural": "iso_20022_channel_import_19012026s"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "key_word_library": {
+      "description": "key_word_library",
+      "source": {
+        "object": "dbo.key_word_library",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "key_word_library",
+          "plural": "key_word_libraries"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "market": {
+      "description": "market",
+      "source": {
+        "object": "dbo.market",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "market",
+          "plural": "markets"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "market_identifier_original": {
+      "description": "market_identifier_original",
+      "source": {
+        "object": "dbo.market_identifier_original",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "market_identifier_original",
+          "plural": "market_identifier_originals"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "market_identifier_vote_adjuster": {
+      "description": "market_identifier_vote_adjuster",
+      "source": {
+        "object": "dbo.market_identifier_vote_adjuster",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "market_identifier_vote_adjuster",
+          "plural": "market_identifier_vote_adjusters"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "market_side_holding": {
+      "description": "market_side_holding",
+      "source": {
+        "object": "dbo.market_side_holding",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "market_side_holding",
+          "plural": "market_side_holdings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "market_side_vote": {
+      "description": "market_side_vote",
+      "source": {
+        "object": "dbo.market_side_vote",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "market_side_vote",
+          "plural": "market_side_votes"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "market_side_vote_allocation_snapshots": {
+      "description": "market_side_vote_allocation_snapshots",
+      "source": {
+        "object": "dbo.market_side_vote_allocation_snapshots",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "market_side_vote_allocation_snapshots",
+          "plural": "market_side_vote_allocation_snapshots"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "market_side_vote_allocations": {
+      "description": "market_side_vote_allocations",
+      "source": {
+        "object": "dbo.market_side_vote_allocations",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "market_side_vote_allocations",
+          "plural": "market_side_vote_allocations"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting": {
+      "description": "meeting",
+      "source": {
+        "object": "dbo.meeting",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting",
+          "plural": "meetings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_announcement_source_filter": {
+      "description": "meeting_announcement_source_filter",
+      "source": {
+        "object": "dbo.meeting_announcement_source_filter",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_announcement_source_filter",
+          "plural": "meeting_announcement_source_filters"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_document_event": {
+      "description": "meeting_document_event",
+      "source": {
+        "object": "dbo.meeting_document_event",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_document_event",
+          "plural": "meeting_document_events"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_external_details": {
+      "description": "meeting_external_details",
+      "source": {
+        "object": "dbo.meeting_external_details",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_external_details",
+          "plural": "meeting_external_details"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_external_provider": {
+      "description": "meeting_external_provider",
+      "source": {
+        "object": "dbo.meeting_external_provider",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_external_provider",
+          "plural": "meeting_external_providers"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_external_provider_change_log": {
+      "description": "meeting_external_provider_change_log",
+      "source": {
+        "object": "dbo.meeting_external_provider_change_log",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_external_provider_change_log",
+          "plural": "meeting_external_provider_change_logs"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_external_provider_file": {
+      "description": "meeting_external_provider_file",
+      "source": {
+        "object": "dbo.meeting_external_provider_file",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_external_provider_file",
+          "plural": "meeting_external_provider_files"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_external_provider_file_state": {
+      "description": "meeting_external_provider_file_state",
+      "source": {
+        "object": "dbo.meeting_external_provider_file_state",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_external_provider_file_state",
+          "plural": "meeting_external_provider_file_states"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_external_provider_state": {
+      "description": "meeting_external_provider_state",
+      "source": {
+        "object": "dbo.meeting_external_provider_state",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_external_provider_state",
+          "plural": "meeting_external_provider_states"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_file": {
+      "description": "meeting_file",
+      "source": {
+        "object": "dbo.meeting_file",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_file",
+          "plural": "meeting_files"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_intermediary_alert": {
+      "description": "meeting_intermediary_alert",
+      "source": {
+        "object": "dbo.meeting_intermediary_alert",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_intermediary_alert",
+          "plural": "meeting_intermediary_alerts"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_isin": {
+      "description": "meeting_isin",
+      "source": {
+        "object": "dbo.meeting_isin",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_isin",
+          "plural": "meeting_isins"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_message_original": {
+      "description": "meeting_message_original",
+      "source": {
+        "object": "dbo.meeting_message_original",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_message_original",
+          "plural": "meeting_message_originals"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_participation_methods_with_parameters": {
+      "description": "meeting_participation_methods_with_parameters",
+      "source": {
+        "object": "dbo.meeting_participation_methods_with_parameters",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_participation_methods_with_parameters",
+          "plural": "meeting_participation_methods_with_parameters"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_relationship": {
+      "description": "meeting_relationship",
+      "source": {
+        "object": "dbo.meeting_relationship",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_relationship",
+          "plural": "meeting_relationships"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_result": {
+      "description": "meeting_result",
+      "source": {
+        "object": "dbo.meeting_result",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_result",
+          "plural": "meeting_results"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_trusted_source": {
+      "description": "meeting_trusted_source",
+      "source": {
+        "object": "dbo.meeting_trusted_source",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_trusted_source",
+          "plural": "meeting_trusted_sources"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_vote": {
+      "description": "meeting_vote",
+      "source": {
+        "object": "dbo.meeting_vote",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_vote",
+          "plural": "meeting_votes"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "meeting_vote_ballot": {
+      "description": "meeting_vote_ballot",
+      "source": {
+        "object": "dbo.meeting_vote_ballot",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "meeting_vote_ballot",
+          "plural": "meeting_vote_ballots"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "nominee_agreement": {
+      "description": "nominee_agreement",
+      "source": {
+        "object": "dbo.nominee_agreement",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "nominee_agreement",
+          "plural": "nominee_agreements"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "outbox_event": {
+      "description": "outbox_event",
+      "source": {
+        "object": "dbo.outbox_event",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "outbox_event",
+          "plural": "outbox_events"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "participation_method_with_parameters": {
+      "description": "participation_method_with_parameters",
+      "source": {
+        "object": "dbo.participation_method_with_parameters",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "participation_method_with_parameters",
+          "plural": "participation_method_with_parameters"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "permanent_registration": {
+      "description": "permanent_registration",
+      "source": {
+        "object": "dbo.permanent_registration",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "permanent_registration",
+          "plural": "permanent_registrations"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "permanent_registration_intermediary": {
+      "description": "permanent_registration_intermediary",
+      "source": {
+        "object": "dbo.permanent_registration_intermediary",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "permanent_registration_intermediary",
+          "plural": "permanent_registration_intermediaries"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "place_of_listing": {
+      "description": "place_of_listing",
+      "source": {
+        "object": "dbo.place_of_listing",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "place_of_listing",
+          "plural": "place_of_listings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "public_holidays": {
+      "description": "public_holidays",
+      "source": {
+        "object": "dbo.public_holidays",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "public_holidays",
+          "plural": "public_holidays"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "raw_meeting": {
+      "description": "raw_meeting",
+      "source": {
+        "object": "dbo.raw_meeting",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "raw_meeting",
+          "plural": "raw_meetings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "raw_meeting_participation_methods_with_parameters": {
+      "description": "raw_meeting_participation_methods_with_parameters",
+      "source": {
+        "object": "dbo.raw_meeting_participation_methods_with_parameters",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "raw_meeting_participation_methods_with_parameters",
+          "plural": "raw_meeting_participation_methods_with_parameters"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "raw_resolution": {
+      "description": "raw_resolution",
+      "source": {
+        "object": "dbo.raw_resolution",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "raw_resolution",
+          "plural": "raw_resolutions"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "raw_resolution_state": {
+      "description": "raw_resolution_state",
+      "source": {
+        "object": "dbo.raw_resolution_state",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "raw_resolution_state",
+          "plural": "raw_resolution_states"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "raw_voting_options": {
+      "description": "raw_voting_options",
+      "source": {
+        "object": "dbo.raw_voting_options",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "raw_voting_options",
+          "plural": "raw_voting_options"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "registration": {
+      "description": "registration",
+      "source": {
+        "object": "dbo.registration",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "registration",
+          "plural": "registrations"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "role": {
+      "description": "role",
+      "source": {
+        "object": "dbo.role",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "role",
+          "plural": "roles"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "screening_message_recipient": {
+      "description": "screening_message_recipient",
+      "source": {
+        "object": "dbo.screening_message_recipient",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "screening_message_recipient",
+          "plural": "screening_message_recipients"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "settlement_market_bic_mapping": {
+      "description": "settlement_market_bic_mapping",
+      "source": {
+        "object": "dbo.settlement_market_bic_mapping",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "settlement_market_bic_mapping",
+          "plural": "settlement_market_bic_mappings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "shareholder_id_override": {
+      "description": "shareholder_id_override",
+      "source": {
+        "object": "dbo.shareholder_id_override",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "shareholder_id_override",
+          "plural": "shareholder_id_overrides"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "suppress_market_original": {
+      "description": "suppress_market_original",
+      "source": {
+        "object": "dbo.suppress_market_original",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "suppress_market_original",
+          "plural": "suppress_market_originals"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "third_party_vote_api_request": {
+      "description": "third_party_vote_api_request",
+      "source": {
+        "object": "dbo.third_party_vote_api_request",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "third_party_vote_api_request",
+          "plural": "third_party_vote_api_requests"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "user_creation_roles_whitelisting": {
+      "description": "user_creation_roles_whitelisting",
+      "source": {
+        "object": "dbo.user_creation_roles_whitelisting",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "user_creation_roles_whitelisting",
+          "plural": "user_creation_roles_whitelistings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "user_meetings_config": {
+      "description": "user_meetings_config",
+      "source": {
+        "object": "dbo.user_meetings_config",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "user_meetings_config",
+          "plural": "user_meetings_configs"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "user_mep_change_history": {
+      "description": "user_mep_change_history",
+      "source": {
+        "object": "dbo.user_mep_change_history",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "user_mep_change_history",
+          "plural": "user_mep_change_histories"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "users": {
+      "description": "users",
+      "source": {
+        "object": "dbo.users",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "users",
+          "plural": "users"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "users_roles": {
+      "description": "users_roles",
+      "source": {
+        "object": "dbo.users_roles",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "users_roles",
+          "plural": "users_roles"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_api_request": {
+      "description": "vote_api_request",
+      "source": {
+        "object": "dbo.vote_api_request",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vote_api_request",
+          "plural": "vote_api_requests"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_execution_channel": {
+      "description": "vote_execution_channel",
+      "source": {
+        "object": "dbo.vote_execution_channel",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vote_execution_channel",
+          "plural": "vote_execution_channels"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_execution_meeting": {
+      "description": "vote_execution_meeting",
+      "source": {
+        "object": "dbo.vote_execution_meeting",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vote_execution_meeting",
+          "plural": "vote_execution_meetings"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_execution_mep": {
+      "description": "vote_execution_mep",
+      "source": {
+        "object": "dbo.vote_execution_mep",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vote_execution_mep",
+          "plural": "vote_execution_meps"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_instruction": {
+      "description": "vote_instruction",
+      "source": {
+        "object": "dbo.vote_instruction",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vote_instruction",
+          "plural": "vote_instructions"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_instruction_intention_detail": {
+      "description": "vote_instruction_intention_detail",
+      "source": {
+        "object": "dbo.vote_instruction_intention_detail",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vote_instruction_intention_detail",
+          "plural": "vote_instruction_intention_details"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_message": {
+      "description": "vote_message",
+      "source": {
+        "object": "dbo.vote_message",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vote_message",
+          "plural": "vote_messages"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_reference_data": {
+      "description": "vote_reference_data",
+      "source": {
+        "object": "dbo.vote_reference_data",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vote_reference_data",
+          "plural": "vote_reference_datas"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vote_report": {
+      "description": "vote_report",
+      "source": {
+        "object": "dbo.vote_report",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vote_report",
+          "plural": "vote_reports"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "voting_options": {
+      "description": "voting_options",
+      "source": {
+        "object": "dbo.voting_options",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "voting_options",
+          "plural": "voting_options"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "vp_id": {
+      "description": "vp_id",
+      "source": {
+        "object": "dbo.vp_id",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vp_id",
+          "plural": "vp_ids"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    },
+    "website_user": {
+      "description": "website_user",
+      "source": {
+        "object": "dbo.website_user",
+        "type": "table"
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "website_user",
+          "plural": "website_users"
+        }
+      },
+      "rest": {
+        "enabled": true
+      },
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "read"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
